@@ -85,10 +85,10 @@ requirements.txt lists torch>=2.0, numpy, pandas, scipy, matplotlib, and pyDOE.
 
 The repository does not redistribute raw datasets. See data/README.md for licensing-compliant download instructions for both data sources:
 
-- I-24 MOTION: five days (20221121, 20221122, 20221123, 20221129, 20221202), aggregated to a 100 by 7,200 grid (Delta x approximately 211 ft, Delta t equals 2 s, 4-hour observation window 06:00-10:00 CST).
+- I-24 MOTION (Gloudemans et al., 2023): five days (20221121, 20221122, 20221123, 20221129, 20221202), aggregated to a 100 by 7,200 grid (Delta x approximately 211 ft, Delta t equals 2 s, 4-hour observation window 06:00-10:00 CST). The aggregated CSV files are included in `data/i24/`. Please cite the I-24 MOTION reference (see `data/README.md`) when using these files.
 - NGSIM I-80: supplementary benchmark, configured as in Huang and Agarwal (2023).
 
-After download, place files at:
+The aggregated CSV files are already included in `data/i24/` and `data/ngsim/`. The expected layout is:
 
 data/i24/<YYYYMMDD>.csv
 data/ngsim/ngsim_data.csv
@@ -165,6 +165,16 @@ The paper reports 6 methods (B1 through B6). The development codebase uses an ex
 }
 
 A finalized BibTeX entry will replace this block upon acceptance.
+
+---
+
+## Acknowledgments
+
+This work uses aggregated speed data derived from the I-24 MOTION program at Vanderbilt University in collaboration with the Tennessee Department of Transportation:
+
+> Gloudemans, D., Wang, Y., Ji, J., Zachar, G., Barbour, W., Hall, E., Cebelak, M., Smith, L., and Work, D. B. (2023). I-24 MOTION: An instrument for freeway traffic science. Transportation Research Part C: Emerging Technologies, 155, 104311.
+
+We thank the I-24 MOTION team for providing access to the trajectory data, and the FHWA Next Generation Simulation program for the public NGSIM I-80 data.
 
 ---
 

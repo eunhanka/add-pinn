@@ -1,86 +1,76 @@
 # Datasets
 
-The ADD-PINN release does not redistribute raw traffic data. Both datasets are
-publicly available from their original providers under their own terms of use.
-Download them and place them in the layout described below.
+This directory contains the aggregated traffic speed data used to train and evaluate ADD-PINN. Both datasets are derived from publicly accessible sources; the raw trajectory data are not redistributed here.
 
 ---
 
-## Expected layout
+## Directory layout
 
-```
 data/
-├── i24/
-│   ├── 20221121.csv
-│   ├── 20221122.csv
-│   ├── 20221123.csv
-│   ├── 20221129.csv
-│   └── 20221202.csv
-└── ngsim/
-    └── ngsim_data.csv
-```
+- i24/
+  - 20221121.csv  (4.2-mile section of I-24, 06:00-10:00 CST, accident scenario)
+  - 20221122.csv  (nominal weekday)
+  - 20221123.csv  (pre-Thanksgiving congestion)
+  - 20221129.csv  (nominal weekday)
+  - 20221202.csv  (nominal weekday)
+- ngsim/
+  - ngsim_data.csv  (I-80 benchmark slice as in Huang and Agarwal, 2023)
 
-All files are CSV with three columns:
+---
 
-| column        | type   | meaning                              |
-| ------------- | ------ | ------------------------------------ |
-| `time_index`  | int    | discrete time bin index (Δt = 2 s for I-24, 0.1 s for NGSIM) |
-| `space_index` | int    | discrete cell index along the corridor |
-| `speed_mph`   | float  | aggregated mean speed in mph         |
+## File schema
 
-Speeds are normalized to [0, 1] by min-max scaling on the full aggregated
-field at runtime in `src/utils.py:load_dataset`.
+All CSV files share the following column convention used by `src/utils.py:load_dataset`:
+
+| column  | type   | meaning                                          |
+| ------- | ------ | ------------------------------------------------ |
+| `t`     | int    | discrete time bin index                          |
+| `x`     | int    | discrete cell index along the corridor           |
+| `speed` | float  | aggregated mean speed in **feet per second (ft/s)** |
+
+Note that the speed column is in ft/s, not mph. The loader at `src/utils.py:load_dataset` (line 34) converts ft/s to mph by multiplying by 0.681818. Speeds are subsequently normalized to [0, 1] via min-max scaling on the full aggregated field, and the free-flow speed is estimated as the 95th percentile of the aggregated speed field.
+
+Domain dimensions used by the experiments:
+
+| dataset | spatial extent | temporal extent | grid (n_x x n_t) | dx       | dt    |
+| ------- | -------------- | --------------- | ---------------- | -------- | ----- |
+| I-24    | 21,120 ft (4 mi) | 14,400 s (4 h) | 100 x 7,200      | ~211 ft  | 2 s   |
+| NGSIM   | 1,600 ft       | 900 s           | varies            | varies   | varies |
 
 ---
 
 ## I-24 MOTION
 
-> Gloudemans, D., Wang, Y., Ji, J., Zachár, G., Barbour, W., Hall, E., Cebelak,
-> M., Smith, L., & Work, D. B. (2023). *I-24 MOTION: An instrument for freeway
-> traffic science.* Transportation Research Part C: Emerging Technologies,
-> 155, 104311.
+This release uses five days of aggregated speed data from the I-24 MOTION testbed:
 
-This release uses five days of aggregated speed data on a 4.2-mile section of
-I-24 in Tennessee:
+> Gloudemans, D., Wang, Y., Ji, J., Zachar, G., Barbour, W., Hall, E., Cebelak, M., Smith, L., and Work, D. B. (2023). I-24 MOTION: An instrument for freeway traffic science. Transportation Research Part C: Emerging Technologies, 155, 104311.
 
-| Date         | Notes                                        |
-| ------------ | -------------------------------------------- |
-| 2022-11-21   | accident scenario (used for primary results) |
-| 2022-11-22   | nominal weekday                              |
-| 2022-11-23   | pre-Thanksgiving congestion                  |
-| 2022-11-29   | nominal weekday                              |
-| 2022-12-02   | nominal weekday                              |
+The aggregated CSV files in `data/i24/` were derived from the I-24 MOTION raw vehicle trajectory data with explicit acknowledgement of the original program. We thank the I-24 MOTION team and the Tennessee Department of Transportation for providing access to the trajectory dataset that made this work possible.
 
-Each file covers the 06:00–10:00 CST observation window and is aggregated to
-a 100-cell × 7,200-step grid (Δx ≈ 0.04 mi, Δt = 2 s, total 4 hours, 4 mi).
+If you use the data files in this directory, please cite the original I-24 MOTION paper above in addition to citing this work.
 
-**Access:** trajectory data is distributed by the I-24 MOTION program. See
-the program homepage for the current data access policy and request portal.
-*[Insert official I-24 MOTION data portal URL here at submission time.]*
-After receiving access to raw trajectories, aggregate to the
-(time_index, space_index, speed_mph) format above.
+Raw trajectory data is distributed by the I-24 MOTION program through their official channels. Refer to the program homepage for the current data access policy.
 
 ---
 
 ## NGSIM I-80
 
-> U.S. Department of Transportation, Federal Highway Administration (FHWA).
-> *Next Generation Simulation (NGSIM)* Vehicle Trajectories and Supporting
-> Data. Public dataset.
+The NGSIM benchmark slice was prepared in the configuration of:
 
-The NGSIM slice used here matches the configuration of:
+> Huang, A. J. and Agarwal, S. (2023). On the limitations of physics-informed deep learning: Illustrations using first-order hyperbolic conservation law-based traffic flow models. IEEE Open Journal of Intelligent Transportation Systems, 4, 279-293.
 
-> Huang, A. J., & Agarwal, S. (2023). *On the limitations of physics-informed
-> deep learning: Illustrations using first-order hyperbolic conservation
-> law-based traffic flow models.* IEEE Open Journal of Intelligent
-> Transportation Systems, 4, 279–293.
+NGSIM raw trajectories are publicly available from the U.S. Department of Transportation FHWA Next Generation Simulation portal.
 
-**Access:** NGSIM is freely available from the FHWA Next Generation Simulation
-public portal. Download the I-80 trajectory subset and aggregate it to the
-expected CSV format above.
+---
+
+## Aggregation procedure
+
+The mapping from raw vehicle trajectories to the aggregated speed grid follows a standard binning procedure: for each spatiotemporal cell (x_i, t_j) of size dx by dt, the speed value is the mean of all vehicle speeds whose trajectory passes through that cell during that time bin, averaged across lanes. Cells with no vehicle crossings are filled by linear interpolation along the time axis.
+
+The aggregation script itself is not included in this release because it relies on a specific raw-data ingestion pipeline tied to the I-24 MOTION raw trajectory format. Researchers interested in regenerating the aggregated CSVs from raw data are referred to standard binning procedures used in the macroscopic traffic flow literature, for example as documented in Treiber and Kesting (2013, "Traffic Flow Dynamics") or Seo et al. (2017). The bin sizes used in this work are dx = 211 ft, dt = 2 s for I-24 and as documented above for NGSIM.
 
 ---
 
 ## Reproducibility note
 
-The aggregation step (raw trajectories to time-space speed grid) is deterministic given the bin sizes documented above. With matched seeds (SEEDS = [42, 123, 456, 789, 1024, 2048, 3000, 4096, 5555, 7777] in experiments/run_all.py) and matched hardware/CUDA versions, reported metrics are typically reproducible to within seed-to-seed standard deviation. Bit-for-bit reproduction is not guaranteed across different GPU models or CUDA versions due to non-deterministic floating-point operations in cuDNN.
+The aggregated CSVs in this directory are deterministic given the bin sizes documented above. With matched seeds (`SEEDS = [42, 123, 456, 789, 1024, 2048, 3000, 4096, 5555, 7777]` in `experiments/run_all.py`) and matched hardware/CUDA versions, reported metrics are typically reproducible to within seed-to-seed standard deviation. Bit-for-bit reproduction is not guaranteed across different GPU models or CUDA versions due to non-deterministic floating-point operations in cuDNN.

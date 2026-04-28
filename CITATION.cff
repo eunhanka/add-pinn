@@ -31,6 +31,35 @@ keywords:
   - domain decomposition
   - LWR model
   - Rankine-Hugoniot
+references:
+  - type: article
+    title: "I-24 MOTION: An instrument for freeway traffic science"
+    authors:
+      - family-names: "Gloudemans"
+        given-names: "Derek"
+      - family-names: "Wang"
+        given-names: "Yanbing"
+      - family-names: "Ji"
+        given-names: "Junyi"
+      - family-names: "Zachar"
+        given-names: "Gergely"
+      - family-names: "Barbour"
+        given-names: "William"
+      - family-names: "Hall"
+        given-names: "Eric"
+      - family-names: "Cebelak"
+        given-names: "Meredith"
+      - family-names: "Smith"
+        given-names: "Lee"
+      - family-names: "Work"
+        given-names: "Daniel B."
+    journal: "Transportation Research Part C: Emerging Technologies"
+    volume: 155
+    start: 104311
+    year: 2023
+    doi: "10.1016/j.trc.2023.104311"
+    publisher:
+      name: "Elsevier"
 preferred-citation:
   type: article
   title: "Adaptive Domain Decomposition Physics-Informed Neural Networks for Traffic State Estimation with Sparse Sensor Data"
