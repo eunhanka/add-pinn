@@ -1,0 +1,50 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Logs and runtime artifacts
+*.log
+*.out
+
+# Large numerical artifacts (NOT shipped in this release)
+*.npy
+*.npz
+*.pkl
+*.pt
+*.pth
+*.ckpt
+results/predictions/
+
+# Generated figure variants (only output_final/ is tracked)
+results/figures/output/
+results/figures/output_v*/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editor / IDE
+.vscode/
+.idea/
+.claude/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

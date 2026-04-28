@@ -1,0 +1,52 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the accompanying paper."
+title: "ADD-PINN: Adaptive Domain Decomposition Physics-Informed Neural Networks for Traffic State Estimation with Sparse Sensor Data"
+abstract: >-
+  ADD-PINN is a two-stage residual-guided physics-informed neural network for
+  freeway traffic state estimation under sparse sensing. A coarse global PINN
+  is first trained, then its PDE-residual profile drives an adaptive
+  decomposition into subdomains coupled by Rankine-Hugoniot interface
+  conditions, yielding shock-admissible reconstructions on the LWR
+  conservation law. The method is evaluated on five days of I-24 MOTION data
+  and an NGSIM I-80 supplementary set.
+type: software
+authors:
+  - family-names: "Ka"
+    given-names: "Eunhan"
+    affiliation: "Lyles School of Civil and Construction Engineering, Purdue University"
+    orcid: "https://orcid.org/0000-0003-0954-8075"
+  - family-names: "Leclercq"
+    given-names: "Ludovic"
+    affiliation: "Univ Gustave Eiffel, ENTPE, LICIT-ECO7"
+  - family-names: "Ukkusuri"
+    given-names: "Satish V."
+    affiliation: "Lyles School of Civil and Construction Engineering, Purdue University"
+version: "1.0.0"
+date-released: "2026-04-30"
+repository-code: "https://github.com/eunhanka/add-pinn"
+license: MIT
+keywords:
+  - physics-informed neural networks
+  - traffic state estimation
+  - domain decomposition
+  - LWR model
+  - Rankine-Hugoniot
+preferred-citation:
+  type: article
+  title: "Adaptive Domain Decomposition Physics-Informed Neural Networks for Traffic State Estimation with Sparse Sensor Data"
+  authors:
+    - family-names: "Ka"
+      given-names: "Eunhan"
+      affiliation: "Lyles School of Civil and Construction Engineering, Purdue University"
+      orcid: "https://orcid.org/0000-0003-0954-8075"
+    - family-names: "Leclercq"
+      given-names: "Ludovic"
+      affiliation: "Univ Gustave Eiffel, ENTPE, LICIT-ECO7"
+    - family-names: "Ukkusuri"
+      given-names: "Satish V."
+      affiliation: "Lyles School of Civil and Construction Engineering, Purdue University"
+  journal: "Transportation Research Part C: Emerging Technologies"
+  year: 2026
+  publisher:
+    name: "Elsevier"
+  notes: "Manuscript under review"
