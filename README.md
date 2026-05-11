@@ -156,6 +156,37 @@ The paper reports 6 methods (B1 through B6). The development codebase uses an ex
 
 ## Citation
 
+This work is currently available as a preprint on arXiv and SSRN, and is under review at *Transportation Research Part C: Emerging Technologies*. Please cite either preprint version:
+
+**arXiv preprint** ([10.48550/arXiv.2605.08028](https://doi.org/10.48550/arXiv.2605.08028)):
+
+```bibtex
+@article{ka2026addpinn_arxiv,
+  title   = {Adaptive Domain Decomposition Physics-Informed Neural Networks for Traffic State Estimation with Sparse Sensor Data},
+  author  = {Ka, Eunhan and Leclercq, Ludovic and Ukkusuri, Satish V.},
+  journal = {arXiv preprint arXiv:2605.08028},
+  year    = {2026},
+  doi     = {10.48550/arXiv.2605.08028},
+  url     = {https://arxiv.org/abs/2605.08028}
+}
+```
+
+**SSRN preprint** ([10.2139/ssrn.6712944](https://dx.doi.org/10.2139/ssrn.6712944)):
+
+```bibtex
+@article{ka2026addpinn_ssrn,
+  title   = {Adaptive Domain Decomposition Physics-Informed Neural Networks for Traffic State Estimation with Sparse Sensor Data},
+  author  = {Ka, Eunhan and Leclercq, Ludovic and Ukkusuri, Satish V.},
+  journal = {SSRN Electronic Journal},
+  year    = {2026},
+  doi     = {10.2139/ssrn.6712944},
+  url     = {https://papers.ssrn.com/abstract=6712944}
+}
+```
+
+**Journal version** (under review):
+
+```bibtex
 @article{add-pinn-2026,
   title   = {Adaptive Domain Decomposition Physics-Informed Neural Networks for Traffic State Estimation with Sparse Sensor Data},
   author  = {Ka, Eunhan and Leclercq, Ludovic and Ukkusuri, Satish V.},
@@ -163,6 +194,7 @@ The paper reports 6 methods (B1 through B6). The development codebase uses an ex
   year    = {2026},
   note    = {Manuscript under review}
 }
+```
 
 A finalized BibTeX entry will replace this block upon acceptance.
 
