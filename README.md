@@ -184,18 +184,6 @@ This work is currently available as a preprint on arXiv and SSRN, and is under r
 }
 ```
 
-**Journal version** (under review):
-
-```bibtex
-@article{add-pinn-2026,
-  title   = {Adaptive Domain Decomposition Physics-Informed Neural Networks for Traffic State Estimation with Sparse Sensor Data},
-  author  = {Ka, Eunhan and Leclercq, Ludovic and Ukkusuri, Satish V.},
-  journal = {Transportation Research Part C: Emerging Technologies},
-  year    = {2026},
-  note    = {Manuscript under review}
-}
-```
-
 A finalized BibTeX entry will replace this block upon acceptance.
 
 ---
